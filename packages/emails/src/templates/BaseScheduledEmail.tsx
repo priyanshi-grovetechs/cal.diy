@@ -1,5 +1,6 @@
 import dayjs from "@calcom/dayjs";
 import { formatPrice } from "@calcom/lib/currencyConversions";
+import { getVideoCallUrlFromCalEvent } from "@calcom/lib/CalEventParser";
 import { TimeFormat } from "@calcom/lib/timeFormat";
 import type { CalendarEvent, Person } from "@calcom/types/Calendar";
 import type { TFunction } from "i18next";
@@ -61,24 +62,40 @@ export const BaseScheduledEmail = (
     rescheduledBy = personWhoRescheduled?.name;
   }
 
-  return (
-    <BaseEmailHtml
-      hideLogo={Boolean(props.calEvent.platformClientId) || Boolean(props.calEvent.hideBranding)}
-      headerType={props.headerType || "checkCircle"}
-      subject={props.subject || subject}
-      title={t(
+  const isBoothMeeting = props.calEvent.type === "Booth Meeting";
+  const meetingUrl = getVideoCallUrlFromCalEvent(props.calEvent) ||
+    (props.calEvent.location?.match(/^https?:/) ? props.calEvent.location : undefined);
+
+  const defaultTitle = isBoothMeeting
+    ? props.isOrganizer
+      ? "New Booth Meeting Scheduled!"
+      : "Your Booth Meeting is Confirmed!"
+    : t(
         props.title
           ? props.title
           : props.calEvent.recurringEvent?.count
             ? "your_event_has_been_scheduled_recurring"
             : "your_event_has_been_scheduled"
-      )}
+      );
+
+  const defaultSubtitle = isBoothMeeting
+    ? props.isOrganizer
+      ? "A visitor has scheduled a booth meeting with you."
+      : "Your meeting has been confirmed. A calendar invite has been sent to all participants."
+    : t("emailed_you_and_any_other_attendees");
+
+  return (
+    <BaseEmailHtml
+      hideLogo={Boolean(props.calEvent.platformClientId) || Boolean(props.calEvent.hideBranding)}
+      headerType={props.headerType || "checkCircle"}
+      subject={props.subject || subject}
+      title={props.title ? t(props.title) : defaultTitle}
       callToAction={
         props.callToAction === null
           ? null
           : props.callToAction || <ManageLink attendee={props.attendee} calEvent={props.calEvent} />
       }
-      subtitle={props.subtitle || <>{t("emailed_you_and_any_other_attendees")}</>}>
+      subtitle={props.subtitle || <>{defaultSubtitle}</>}>
       {props.calEvent.rejectionReason && (
         <>
           <Info label={t("rejection_reason")} description={props.calEvent.rejectionReason} withSpacer />
@@ -124,6 +141,39 @@ export const BaseScheduledEmail = (
       <WhenInfo timeFormat={timeFormat} calEvent={props.calEvent} t={t} timeZone={timeZone} locale={locale} />
       <WhoInfo calEvent={props.calEvent} t={t} />
       <LocationInfo calEvent={props.calEvent} t={t} />
+      {meetingUrl && (
+        <Info
+          label="How to Join"
+          withSpacer
+          description={
+            <div>
+              <p style={{ margin: 0, color: "#374151", fontWeight: 400, lineHeight: "24px" }}>
+                Click the <strong>meeting link</strong> above at your scheduled time to enter the virtual
+                meeting room. No downloads required — works directly in your browser.
+              </p>
+              <p style={{ margin: "10px 0 0 0", lineHeight: "24px" }}>
+                <a
+                  href={meetingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-block",
+                    background: "#4338CA",
+                    color: "#FFFFFF",
+                    fontFamily: "Roboto, Helvetica, sans-serif",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    padding: "10px 24px",
+                    borderRadius: "6px",
+                  }}>
+                  Join Meeting
+                </a>
+              </p>
+            </div>
+          }
+        />
+      )}
       <Info label={t("description")} description={props.calEvent.description} withSpacer formatted />
       <Info label={t("additional_notes")} description={props.calEvent.additionalNotes} withSpacer />
       {props.includeAppsStatus && <AppsStatus calEvent={props.calEvent} t={t} />}

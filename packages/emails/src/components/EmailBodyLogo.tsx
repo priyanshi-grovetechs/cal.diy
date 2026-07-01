@@ -1,13 +1,9 @@
-import { WEBAPP_URL } from "@calcom/lib/constants";
-
 import RawHtml from "./RawHtml";
 import Row from "./Row";
 
 const CommentIE = ({ html = "" }) => <RawHtml html={`<!--[if mso | IE]>${html}<![endif]-->`} />;
 
 const EmailBodyLogo = () => {
-  const image = `${WEBAPP_URL}/emails/logo.png`;
-
   return (
     <>
       <CommentIE
@@ -26,10 +22,9 @@ const EmailBodyLogo = () => {
               html={`<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="vertical-align:top;width:600px;" >`}
             />
             <div
-              className="mj-column-per-100 mj-outlook-group-fix"
               style={{
                 fontSize: "0px",
-                textAlign: "left",
+                textAlign: "center",
                 direction: "ltr",
                 display: "inline-block",
                 verticalAlign: "top",
@@ -41,30 +36,21 @@ const EmailBodyLogo = () => {
                   style={{
                     fontSize: "0px",
                     padding: "10px 25px",
-                    paddingTop: "32px",
+                    paddingTop: "24px",
+                    paddingBottom: "32px",
                     wordBreak: "break-word",
                   }}>
-                  <Row border="0" style={{ borderCollapse: "collapse", borderSpacing: "0px" }}>
-                    <td style={{ width: "89px" }}>
-                      <a href={WEBAPP_URL} target="_blank" rel="noreferrer">
-                        <img
-                          height="19"
-                          src={image}
-                          style={{
-                            border: "0",
-                            display: "block",
-                            outline: "none",
-                            textDecoration: "none",
-                            height: "19px",
-                            width: "100%",
-                            fontSize: "13px",
-                          }}
-                          width="89"
-                          alt=""
-                        />
-                      </a>
-                    </td>
-                  </Row>
+                  <div
+                    style={{
+                      fontFamily: "Roboto, Helvetica, sans-serif",
+                      fontSize: "13px",
+                      color: "#9CA3AF",
+                      lineHeight: "20px",
+                    }}>
+                    Powered by{" "}
+                    <span style={{ color: "#4F46E5", fontWeight: 700 }}>MSxpo</span>
+                    {" · Virtual Event Platform"}
+                  </div>
                 </td>
               </Row>
             </div>
