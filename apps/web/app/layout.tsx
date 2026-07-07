@@ -15,6 +15,8 @@ import { Providers } from "./providers";
 import { SpeculationRules } from "./SpeculationRules";
 
 const interFont = Inter({ subsets: ["latin"], variable: "--font-sans", preload: true, display: "swap" });
+import { IBM_Plex_Sans } from "next/font/google";
+const ibmPlexSansFont = IBM_Plex_Sans({ weight: ["400", "500", "600", "700"], subsets: ["latin"], variable: "--font-ibm-plex-sans", preload: true, display: "swap" });
 const calFont = localFont({
   src: "../fonts/CalSans-SemiBold.woff2",
   variable: "--font-cal",
@@ -116,7 +118,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head nonce={nonce}>
         <style>{`
           :root {
-            --font-sans: ${interFont.style.fontFamily.replace(/\'/g, "")}, system-ui;
+            --font-sans: ${ibmPlexSansFont.style.fontFamily.replace(/\'/g, "")}, ${interFont.style.fontFamily.replace(/\'/g, "")}, system-ui;
             --font-cal: ${calFont.style.fontFamily.replace(/\'/g, "")};
           }
         `}</style>
@@ -130,7 +132,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body
-        className="dark:bg-default bg-subtle antialiased"
+        className={`${ibmPlexSansFont.variable} dark:bg-default bg-subtle antialiased`}
         style={
           isEmbed
             ? {

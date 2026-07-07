@@ -90,7 +90,7 @@ export function getThemeProviderProps({
 }) {
   const isBookingPage = props.isBookingPage;
   const themeSupport = isBookingPage
-    ? ThemeSupport.Booking
+    ? ThemeSupport.None // MSxpo: always force light theme on booking pages
     : props.isThemeSupported === false
       ? ThemeSupport.None
       : ThemeSupport.App;

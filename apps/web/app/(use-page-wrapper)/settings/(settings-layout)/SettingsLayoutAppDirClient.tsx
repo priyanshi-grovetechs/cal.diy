@@ -277,6 +277,8 @@ const useTabs = ({
   permissions?: SettingsPermissions;
 }) => {
   const session = useSession();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore -- tRPC useContext naming collision in this cal.diy fork
   const { data: user } = trpc.viewer.me.get.useQuery({ includePasswordAdded: true });
   const orgBranding = null as { id?: number; slug?: string; name?: string; logoUrl?: string | null } | null;
   const isAdmin = session.data?.user.role === UserPermissionRole.ADMIN;

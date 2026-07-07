@@ -213,7 +213,7 @@ export const AvailableTimeSlots = ({
                 }}
                 key={slots.date}
                 date={dayjs(slots.date)}
-                showTimeFormatToggle={!isColumnView && !isOOODay}
+                showTimeFormatToggle={false}
                 availableMonth={
                   dayjs(selectedDate).format("MM") !== dayjs(slots.date).format("MM")
                     ? dayjs(slots.date).format("MMM")
@@ -241,7 +241,7 @@ export const AvailableTimeSlots = ({
               <AvailableTimes
                 className={customClassNames?.availableTimeSlotsContainer}
                 customClassNames={customClassNames?.availableTimes}
-                showTimeFormatToggle={!isColumnView}
+                showTimeFormatToggle={false}
                 onTimeSelect={onTimeSelect}
                 onTentativeTimeSelect={onTentativeTimeSelect}
                 unavailableTimeSlots={unavailableTimeSlots}

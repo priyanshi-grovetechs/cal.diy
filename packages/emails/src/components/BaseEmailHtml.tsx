@@ -28,8 +28,8 @@ export const BaseEmailHtml = (props: {
   return (
     <Html>
       <EmailHead title={props.subject} />
-      <body style={{ wordSpacing: "normal", backgroundColor: "#F3F4F6" }}>
-        <div style={{ backgroundColor: "#F3F4F6" }}>
+      <body style={{ wordSpacing: "normal", backgroundColor: "#F0F4FF" }}>
+        <div style={{ backgroundColor: "#F0F4FF" }}>
           <RawHtml
             html={`<!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->`}
           />
@@ -54,7 +54,7 @@ export const BaseEmailHtml = (props: {
             style={{
               margin: "0px auto",
               maxWidth: 600,
-              background: "linear-gradient(135deg, #4338CA 0%, #6D28D9 100%)",
+              background: "#0b1f4a",
               borderRadius: "8px 8px 0 0",
               padding: "20px 32px",
               textAlign: "left",
@@ -63,32 +63,11 @@ export const BaseEmailHtml = (props: {
               <tbody>
                 <tr>
                   <td>
-                    <span
-                      style={{
-                        fontFamily: "Roboto, Helvetica, sans-serif",
-                        fontSize: "22px",
-                        fontWeight: 800,
-                        color: "#FFFFFF",
-                        letterSpacing: "-0.5px",
-                        display: "inline-block",
-                        verticalAlign: "middle",
-                      }}>
-                      MSxpo
-                    </span>
-                    <span
-                      style={{
-                        fontFamily: "Roboto, Helvetica, sans-serif",
-                        fontSize: "11px",
-                        fontWeight: 400,
-                        color: "#C4B5FD",
-                        letterSpacing: "1.5px",
-                        textTransform: "uppercase",
-                        marginLeft: "10px",
-                        display: "inline-block",
-                        verticalAlign: "middle",
-                      }}>
-                      Virtual Event Platform
-                    </span>
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_WEBAPP_URL}/msxpo-logo.png`}
+                      alt="MSxpo"
+                      style={{ height: "32px", width: "auto", display: "block" }}
+                    />
                   </td>
                 </tr>
               </tbody>

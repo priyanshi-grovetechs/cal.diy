@@ -76,15 +76,17 @@ export const EventMembers = ({
         className="border-muted"
         items={[
           ...orgOrTeamAvatarItem,
-          ...shownUsers.map((user) => ({
-            href:
-              isPlatform || isPrivateLink || entity.hideProfileLink
-                ? null
-                : `${WEBAPP_URL}/${user.profile?.username}?redirect=false`,
-            alt: user.name || "",
-            title: user.name || "",
-            image: getUserAvatarUrl(user),
-          })),
+          ...shownUsers
+            .filter((user) => !!user.avatarUrl)
+            .map((user) => ({
+              href:
+                isPlatform || isPrivateLink || entity.hideProfileLink
+                  ? null
+                  : `${WEBAPP_URL}/${user.profile?.username}?redirect=false`,
+              alt: user.name || "",
+              title: user.name || "",
+              image: getUserAvatarUrl(user),
+            })),
         ]}
       />
 

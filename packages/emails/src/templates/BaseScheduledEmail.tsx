@@ -158,7 +158,7 @@ export const BaseScheduledEmail = (
                   rel="noreferrer"
                   style={{
                     display: "inline-block",
-                    background: "#4338CA",
+                    background: "#1a56db",
                     color: "#FFFFFF",
                     fontFamily: "Roboto, Helvetica, sans-serif",
                     fontSize: "14px",

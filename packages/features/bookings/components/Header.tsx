@@ -149,7 +149,7 @@ export function Header({
       </div>
       <div className="ml-auto flex gap-2">
         {renderOverlay?.()}
-        <TimeFormatToggle />
+        {false && <TimeFormatToggle />}
         <div className="fixed top-4 ltr:right-4 rtl:left-4">
           <LayoutToggleWithData
             layout={layout}

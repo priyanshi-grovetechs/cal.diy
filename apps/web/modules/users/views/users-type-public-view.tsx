@@ -29,7 +29,26 @@ function Type({ slug, user, isEmbed, booking, isBrandingHidden, eventData, orgBa
 
   return (
     <BookingPageErrorBoundary>
-      <main className={getBookerWrapperClasses({ isEmbed: !!isEmbed })}>
+      {!isEmbed && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 50,
+            background: "#0b1f4a",
+            padding: "0 24px",
+            height: "60px",
+            display: "flex",
+            alignItems: "center",
+            boxShadow: "0 2px 8px rgba(11,31,74,0.4)",
+          }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/msxpo-logo.png" alt="MSxpo" style={{ height: "36px", width: "auto" }} />
+        </div>
+      )}
+      <main className={getBookerWrapperClasses({ isEmbed: !!isEmbed })} style={!isEmbed ? { paddingTop: "60px", backgroundColor: "#F0F4FF", minHeight: "100dvh" } : undefined}>
         <Booker
           username={user}
           eventSlug={slug}
