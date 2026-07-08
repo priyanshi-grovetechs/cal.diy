@@ -90,9 +90,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   if (bookingInfo.fromReschedule) {
     const bookingRepo = new BookingRepository(prisma);
-    previousBooking = await bookingRepo.findReschedulerByUid({
+    const rawPrev = await bookingRepo.findReschedulerByUid({
       uid: bookingInfo.fromReschedule,
     });
+    if (rawPrev) {
+      previousBooking = {
+        uid: rawPrev.uid,
+        // Fall back to the first attendee's name when rescheduledBy is blank
+        rescheduledBy: rawPrev.rescheduledBy || rawPrev.attendees?.[0]?.name || null,
+      };
+    }
   }
 
   const eventTypeRaw = !bookingInfoRaw.eventTypeId

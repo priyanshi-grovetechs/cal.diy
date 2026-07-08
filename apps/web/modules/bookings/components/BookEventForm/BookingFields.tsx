@@ -136,7 +136,7 @@ export const BookingFields = ({
 
         let readOnly = bookingReadOnly || rescheduleReadOnly;
 
-        let hidden = !!field.hidden;
+        const hidden = !!field.hidden;
         const fieldViews = field.views;
 
         if (fieldViews && !fieldViews.find((view) => view.id === currentView)) {
@@ -164,10 +164,6 @@ export const BookingFields = ({
         }
 
         if (field.name === SystemField.Enum.guests) {
-          return null;
-        }
-
-        if (field.name === SystemField.Enum.notes) {
           return null;
         }
 

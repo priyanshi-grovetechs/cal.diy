@@ -24,6 +24,7 @@ export interface BookingUpdateData {
   cancellationReason?: string | null;
   cancelledBy?: string | null;
   iCalSequence?: number;
+  idempotencyKey?: string | null;
 }
 
 interface BookingWithReferences {
